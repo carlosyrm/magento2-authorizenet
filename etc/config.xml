@@ -1,8 +1,12 @@
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
- <default>
-     <cay_authorizenet>
-         <title>Authorize.NET Payment CAY</title>
-     </cay_authorizenet>
- </default>
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <cay_authorizenet>
+                <title>Authorize.NET Payment CAY</title>
+                <model>CAYAuthorizenetFacade</model>
+                <can_use_checkout>1</can_use_checkout>
+            </cay_authorizenet>
+        </payment>
+    </default>
 </config>
