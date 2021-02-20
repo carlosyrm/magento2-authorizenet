@@ -40,8 +40,51 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="authorize" xsi:type="string">Magento\Payment\Gateway\Command\NullCommand</item>
-                <item name="capture" xsi:type="string">Magento\Payment\Gateway\Command\NullCommand</item>
+                <item name="capture" xsi:type="string">CAYAuthorizenetChargeCommand</item>
             </argument>
+        </arguments>
+    </virtualType>
+
+
+    <!-- Authorize.NET Request Charge Transaction Builder -->
+    <virtualType name="CAYAuthorizenetChargeTransactionBuilder" type="CAY\Authorizenet\Gateway\Request\RequestBuilder">
+        <arguments>
+            <argument name="builder" xsi:type="object">CAYAuthorizenetChargeBuilderComposite</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Authorize.NET Request Charge Transaction Builder Composite -->
+    <virtualType name="CAYAuthorizenetChargeBuilderComposite" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="charge" xsi:type="string">CAY\Authorizenet\Gateway\Request\Builder\Charge</item>
+                <item name="payment" xsi:type="string">CAY\Authorizenet\Gateway\Request\Builder\Payment</item>
+                <item name="productItems" xsi:type="string">CAY\Authorizenet\Gateway\Request\Builder\ProductItems</item>
+                <item name="totals" xsi:type="string">CAY\Authorizenet\Gateway\Request\Builder\Totals</item>
+                <item name="address" xsi:type="string">CAY\Authorizenet\Gateway\Request\Builder\Address</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+    <!-- Authorize.NET Charge Command -->
+    <virtualType name="CAYAuthorizenetChargeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">CAYAuthorizenetChargeTransactionBuilder</argument>
+            <argument name="transferFactory" xsi:type="object">CAY\Authorizenet\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">CAY\Authorizenet\Gateway\Http\Client</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="CAY\Authorizenet\Gateway\Http\Client">
+        <arguments>
+            <argument name="logger" xsi:type="object">CAYAuthorizenetLogger</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="CAYAuthorizenetLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">CAYConfig</argument>
         </arguments>
     </virtualType>
 </config>
