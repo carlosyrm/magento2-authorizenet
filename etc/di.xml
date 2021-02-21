@@ -76,9 +76,11 @@
         </arguments>
     </virtualType>
 
+    <!-- Authorizet.NET Client -->
     <type name="CAY\Authorizenet\Gateway\Http\Client">
         <arguments>
             <argument name="logger" xsi:type="object">CAYAuthorizenetLogger</argument>
+            <argument name="converter" xsi:type="object">CAY\Authorizenet\Gateway\Converter\JsonToArray</argument>
         </arguments>
     </type>
 
@@ -87,4 +89,16 @@
             <argument name="config" xsi:type="object">CAYConfig</argument>
         </arguments>
     </virtualType>
+
+    <type name="CAY\Authorizenet\Gateway\Converter\JsonToArray">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\Json</argument>
+        </arguments>
+    </type>
+
+    <type name="CAY\Authorizenet\Gateway\Converter\Converter">
+        <arguments>
+            <argument name="converter" xsi:type="object">CAY\Authorizenet\Gateway\Converter\ArrayToJson</argument>
+        </arguments>
+    </type>
 </config>

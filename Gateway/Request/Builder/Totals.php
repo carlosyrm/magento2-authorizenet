@@ -24,7 +24,7 @@ class Totals implements BuilderInterface
 
         return array(
             'tax' => array(
-                'ammount' => $orderModel->getTaxAmount()
+                'amount' => $orderModel->getTaxAmount()
             ),
             'duty' => array(
                 'amount' => '0'

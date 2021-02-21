@@ -23,10 +23,11 @@ class ProductItems implements BuilderInterface
 
         /** @var OrderItemInterface $item */
         foreach ($order->getItems() as $key => $item) {
+            $description = $item->getDescription() ?: $item->getName();
             $items['lineItem'][] = array(
                 "itemId" =>  (string)$key,
                 "name" =>  substr($item->getName(), 0, 31),
-                "description" => substr($item->getDescription(), 0, 255),
+                "description" => substr($description, 0, 255),
                 "quantity" =>  $item->getQtyOrdered(),
                 "unitPrice" => $item->getPrice()
             );
