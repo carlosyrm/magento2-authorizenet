@@ -6,7 +6,7 @@
         <arguments>
             <argument name="code" xsi:type="string">cay_authorizenet</argument>
             <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form\Cc</argument>
-            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\ConfigurableInfo</argument>
+            <argument name="infoBlockType" xsi:type="string">CAYAuthorizenetConfigurableInfo</argument>
             <argument name="valueHandlerPool" xsi:type="object">CAYAuthorizenetValueHandlerPool</argument>
             <argument name="commandPool" xsi:type="object">CAYAuthorizenetCommandPool</argument>
         </arguments>
@@ -73,6 +73,7 @@
             <argument name="requestBuilder" xsi:type="object">CAYAuthorizenetChargeTransactionBuilder</argument>
             <argument name="transferFactory" xsi:type="object">CAY\Authorizenet\Gateway\Http\TransferFactory</argument>
             <argument name="client" xsi:type="object">CAY\Authorizenet\Gateway\Http\Client</argument>
+            <argument name="handler" xsi:type="object">CAYAuthorizenetChargeHandler</argument>
         </arguments>
     </virtualType>
 
@@ -84,6 +85,7 @@
         </arguments>
     </type>
 
+    <!-- Authorize.NET CAY Logger -->
     <virtualType name="CAYAuthorizenetLogger" type="Magento\Payment\Model\Method\Logger">
         <arguments>
             <argument name="config" xsi:type="object">CAYConfig</argument>
@@ -101,4 +103,22 @@
             <argument name="converter" xsi:type="object">CAY\Authorizenet\Gateway\Converter\ArrayToJson</argument>
         </arguments>
     </type>
+
+
+    <virtualType name="CAYAuthorizenetChargeHandler" type='Magento\Payment\Gateway\Response\HandlerChain'>
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name='payment_details' xsi:type="string">CAY\Authorizenet\Gateway\Response\PaymentDetailsHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="CAYAuthorizenetConfigurableInfo" type="Magento\Payment\Block\ConfigurableInfo">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="methodCode" xsi:type="string">cay_authorizenet</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
 </config>
