@@ -74,6 +74,7 @@
             <argument name="transferFactory" xsi:type="object">CAY\Authorizenet\Gateway\Http\TransferFactory</argument>
             <argument name="client" xsi:type="object">CAY\Authorizenet\Gateway\Http\Client</argument>
             <argument name="handler" xsi:type="object">CAYAuthorizenetChargeHandler</argument>
+            <argument name="validator" xsi:type="object">CAY\Authorizenet\Gateway\Validator\GeneralResponseValidator</argument>            
         </arguments>
     </virtualType>
 
@@ -109,6 +110,7 @@
         <arguments>
             <argument name="handlers" xsi:type="array">
                 <item name='payment_details' xsi:type="string">CAY\Authorizenet\Gateway\Response\PaymentDetailsHandler</item>
+                <item name='transaction_details' xsi:type="string">CAY\Authorizenet\Gateway\Response\TransactionAdditionalInfoHandler</item>
             </argument>
         </arguments>
     </virtualType>
@@ -117,8 +119,19 @@
         <arguments>
             <argument name="data" xsi:type="array">
                 <item name="methodCode" xsi:type="string">cay_authorizenet</item>
+                <item name="is_secure_mode" xsi:type="string">0</item>
             </argument>
         </arguments>
     </virtualType>
+
+    <type name="CAY\Authorizenet\Gateway\Config">
+        <arguments>
+            <argument name="valueHandlerPool" xsi:type="object">CAYAuthorizenetValueHandlerPool</argument>
+        </arguments>
+    </type>
     
+
+    <type name="Magento\Payment\Block\Info">
+        <plugin name="CAYAuthorizenetAdditionalInfoLabels" type="CAY\Authorizenet\Plugin\Payment\Block\Info"/>
+    </type>
 </config>
